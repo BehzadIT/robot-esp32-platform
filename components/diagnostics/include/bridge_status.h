@@ -7,7 +7,6 @@
 
 #define BRIDGE_BACKLOG_LINES 128
 #define BRIDGE_BACKLOG_LINE_MAX 384
-#define BRIDGE_STATUS_HOSTNAME_MAX 64
 #define BRIDGE_STATUS_IP_MAX 16
 #define BRIDGE_STATUS_WS_PATH_MAX 16
 
@@ -31,7 +30,6 @@ typedef enum {
 
 typedef struct {
     bridge_wifi_state_t wifi_state;
-    char hostname[BRIDGE_STATUS_HOSTNAME_MAX];
     char ip[BRIDGE_STATUS_IP_MAX];
     char ws_path[BRIDGE_STATUS_WS_PATH_MAX];
     uint32_t ws_clients;
@@ -49,7 +47,7 @@ typedef struct {
     uint32_t backlog_overwrites;
 } bridge_status_snapshot_t;
 
-void bridge_status_init(const char *hostname, const char *ws_path);
+void bridge_status_init(const char *ws_path);
 void bridge_status_set_wifi_state(bridge_wifi_state_t state);
 void bridge_status_set_ip_string(const char *ip);
 void bridge_status_clear_ip(void);

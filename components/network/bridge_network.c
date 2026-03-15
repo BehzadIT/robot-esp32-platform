@@ -13,14 +13,10 @@
 #include "esp_wifi.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
-#include "mdns.h"
 
 #define WIFI_SSID   "BIZI-HOME-24"
 #define WIFI_PASS   "AUxHHs7#2V3DZwuVwkK5"
 
-#define BRIDGE_HOST_LABEL "robot-esp32"
-#define BRIDGE_HOSTNAME_LOCAL "robot-esp32.local"
-#define BRIDGE_INSTANCE_NAME "Robot ESP32 Platform"
 #define BRIDGE_WS_PATH "/ws"
 #define BRIDGE_HTTP_PORT 80
 #define BRIDGE_MAX_CLIENTS 4
@@ -43,7 +39,6 @@ static httpd_handle_t s_server;
 static esp_netif_t *s_sta_netif;
 static SemaphoreHandle_t s_clients_mtx;
 static int s_client_fds[BRIDGE_MAX_CLIENTS];
-static bool s_mdns_started;
 static bool s_have_ip;
 static esp_ip4_addr_t s_ip_addr;
 static uint64_t s_last_got_ip_ms;
@@ -149,36 +144,6 @@ static void clients_remove(int fd)
     }
     bridge_status_set_ws_clients(clients_count_locked());
     xSemaphoreGive(s_clients_mtx);
-}
-
-static void stop_mdns(void)
-{
-    if (s_mdns_started) {
-        mdns_free();
-        s_mdns_started = false;
-    }
-}
-
-static void start_mdns(void)
-{
-    mdns_txt_item_t service_txt[] = {
-        {"board", "esp32"},
-        {"path", BRIDGE_WS_PATH},
-    };
-
-    stop_mdns();
-    ESP_ERROR_CHECK(mdns_init());
-    ESP_ERROR_CHECK(mdns_hostname_set(BRIDGE_HOST_LABEL));
-    ESP_ERROR_CHECK(mdns_instance_name_set(BRIDGE_INSTANCE_NAME));
-    ESP_ERROR_CHECK(mdns_service_add(
-        BRIDGE_INSTANCE_NAME,
-        "_http",
-        "_tcp",
-        BRIDGE_HTTP_PORT,
-        service_txt,
-        sizeof(service_txt) / sizeof(service_txt[0])
-    ));
-    s_mdns_started = true;
 }
 
 static const char *wifi_reason_string(uint8_t reason)
@@ -537,7 +502,6 @@ static void on_wifi_event(void *arg, esp_event_base_t base, int32_t id, void *da
         bridge_status_set_wifi_state(BRIDGE_WIFI_STATE_RECOVERING);
         bridge_status_clear_ip();
         stop_webserver();
-        stop_mdns();
         ESP_LOGW(
             TAG,
             "Wi-Fi disconnected reason=%u(%s) rssi=%d ws_clients=%lu uptime_ms=%llu online_ms=%llu since_ws_ms=%llu, retrying...",
@@ -572,11 +536,10 @@ static void on_ip_event(void *arg, esp_event_base_t base, int32_t id, void *data
 
         /*
          * A changed IP invalidates socket identity for clients, so rebuild the
-         * advertised services and HTTP server rather than trying to preserve them.
+         * HTTP server rather than trying to preserve old sockets.
          */
         if (ip_changed) {
             stop_webserver();
-            start_mdns();
         }
 
         if (!s_server) {
@@ -585,10 +548,9 @@ static void on_ip_event(void *arg, esp_event_base_t base, int32_t id, void *data
 
         ESP_LOGI(
             TAG,
-            "Bridge ready hostname=%s ip=" IPSTR " ws=ws://%s%s",
-            BRIDGE_HOSTNAME_LOCAL,
+            "Bridge ready ip=" IPSTR " ws=ws://" IPSTR "%s",
             IP2STR(&event->ip_info.ip),
-            BRIDGE_HOSTNAME_LOCAL,
+            IP2STR(&event->ip_info.ip),
             BRIDGE_WS_PATH
         );
     }
@@ -596,14 +558,13 @@ static void on_ip_event(void *arg, esp_event_base_t base, int32_t id, void *data
 
 void bridge_network_start(void)
 {
-    bridge_status_init(BRIDGE_HOSTNAME_LOCAL, BRIDGE_WS_PATH);
+    bridge_status_init(BRIDGE_WS_PATH);
     s_clients_mtx = xSemaphoreCreateMutex();
     clients_init();
 
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
     s_sta_netif = esp_netif_create_default_wifi_sta();
-    ESP_ERROR_CHECK(esp_netif_set_hostname(s_sta_netif, BRIDGE_HOST_LABEL));
 
     ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &on_wifi_event, NULL));
     ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &on_ip_event, NULL));

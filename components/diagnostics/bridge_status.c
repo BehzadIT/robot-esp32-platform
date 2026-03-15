@@ -9,7 +9,6 @@
 
 typedef struct {
     bridge_wifi_state_t wifi_state;
-    char hostname[BRIDGE_STATUS_HOSTNAME_MAX];
     char ip[BRIDGE_STATUS_IP_MAX];
     char ws_path[BRIDGE_STATUS_WS_PATH_MAX];
     uint32_t ws_clients;
@@ -65,7 +64,7 @@ static uint64_t uptime_ms(void)
     return (uint64_t)(esp_timer_get_time() / 1000ULL);
 }
 
-void bridge_status_init(const char *hostname, const char *ws_path)
+void bridge_status_init(const char *ws_path)
 {
     if (!s_status_mtx) {
         s_status_mtx = xSemaphoreCreateMutex();
@@ -74,7 +73,6 @@ void bridge_status_init(const char *hostname, const char *ws_path)
     status_lock();
     memset(&s_status, 0, sizeof(s_status));
     s_status.wifi_state = BRIDGE_WIFI_STATE_BOOTING;
-    snprintf(s_status.hostname, sizeof(s_status.hostname), "%s", hostname ? hostname : "");
     snprintf(s_status.ws_path, sizeof(s_status.ws_path), "%s", ws_path ? ws_path : "");
     status_unlock();
 }
@@ -217,7 +215,6 @@ void bridge_status_snapshot(bridge_status_snapshot_t *snapshot)
 
     status_lock();
     snapshot->wifi_state = s_status.wifi_state;
-    snprintf(snapshot->hostname, sizeof(snapshot->hostname), "%s", s_status.hostname);
     snprintf(snapshot->ip, sizeof(snapshot->ip), "%s", s_status.ip);
     snprintf(snapshot->ws_path, sizeof(snapshot->ws_path), "%s", s_status.ws_path);
     snapshot->ws_clients = s_status.ws_clients;
@@ -246,10 +243,9 @@ void bridge_status_format_ready_text(char *buffer, size_t buffer_len)
     snprintf(
         buffer,
         buffer_len,
-        "[bridge] ready hostname=%s ip=%s ws=ws://%s%s uart_seen=%s uptime_ms=%llu",
-        snapshot.hostname,
+        "[bridge] ready ip=%s ws=ws://%s%s uart_seen=%s uptime_ms=%llu",
         snapshot.ip[0] ? snapshot.ip : "0.0.0.0",
-        snapshot.hostname,
+        snapshot.ip[0] ? snapshot.ip : "0.0.0.0",
         snapshot.ws_path,
         snapshot.uart_seen_since_boot ? "yes" : "no",
         (unsigned long long)snapshot.uptime_ms
@@ -265,9 +261,8 @@ void bridge_status_format_ready_json(char *buffer, size_t buffer_len)
         buffer,
         buffer_len,
         "{\"source\":\"esp32_platform\",\"type\":\"bridge_status\",\"state\":\"ready\","
-        "\"hostname\":\"%s\",\"ip\":\"%s\",\"ws_path\":\"%s\",\"ws_clients\":%lu,"
+        "\"ip\":\"%s\",\"ws_path\":\"%s\",\"ws_clients\":%lu,"
         "\"uart_seen_since_boot\":%s,\"uptime_ms\":%llu}",
-        snapshot.hostname,
         snapshot.ip[0] ? snapshot.ip : "0.0.0.0",
         snapshot.ws_path,
         (unsigned long)snapshot.ws_clients,
@@ -285,7 +280,7 @@ void bridge_status_format_health_json(char *buffer, size_t buffer_len)
         snprintf(
             buffer,
             buffer_len,
-            "{\"status\":\"ok\",\"wifi_state\":\"%s\",\"hostname\":\"%s\",\"ip\":\"%s\","
+            "{\"status\":\"ok\",\"wifi_state\":\"%s\",\"ip\":\"%s\","
             "\"ws_path\":\"%s\",\"ws_clients\":%lu,\"uart_seen_since_boot\":%s,"
             "\"uptime_ms\":%llu,\"last_uart_line_age_ms\":null,"
             "\"backlog_lines\":%lu,\"dropped_lines\":%lu,\"truncated_lines\":%lu,"
@@ -293,7 +288,6 @@ void bridge_status_format_health_json(char *buffer, size_t buffer_len)
             "\"uart_frame_errors\":%lu,\"uart_parity_errors\":%lu,"
             "\"backlog_overwrites\":%lu}",
             bridge_status_wifi_state_string(snapshot.wifi_state),
-            snapshot.hostname,
             snapshot.ip[0] ? snapshot.ip : "0.0.0.0",
             snapshot.ws_path,
             (unsigned long)snapshot.ws_clients,
@@ -314,7 +308,7 @@ void bridge_status_format_health_json(char *buffer, size_t buffer_len)
     snprintf(
         buffer,
         buffer_len,
-        "{\"status\":\"ok\",\"wifi_state\":\"%s\",\"hostname\":\"%s\",\"ip\":\"%s\","
+        "{\"status\":\"ok\",\"wifi_state\":\"%s\",\"ip\":\"%s\","
         "\"ws_path\":\"%s\",\"ws_clients\":%lu,\"uart_seen_since_boot\":%s,"
         "\"uptime_ms\":%llu,\"last_uart_line_age_ms\":%llu,"
         "\"backlog_lines\":%lu,\"dropped_lines\":%lu,\"truncated_lines\":%lu,"
@@ -322,7 +316,6 @@ void bridge_status_format_health_json(char *buffer, size_t buffer_len)
         "\"uart_frame_errors\":%lu,\"uart_parity_errors\":%lu,"
         "\"backlog_overwrites\":%lu}",
         bridge_status_wifi_state_string(snapshot.wifi_state),
-        snapshot.hostname,
         snapshot.ip[0] ? snapshot.ip : "0.0.0.0",
         snapshot.ws_path,
         (unsigned long)snapshot.ws_clients,
