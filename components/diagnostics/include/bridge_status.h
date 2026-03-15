@@ -64,10 +64,6 @@ void bridge_status_note_uart_frame_error(void);
 void bridge_status_note_uart_parity_error(void);
 bool bridge_status_warning_should_emit(bridge_warning_type_t type, uint64_t min_interval_ms);
 void bridge_status_record_backlog_line(const char *text);
-size_t bridge_status_copy_backlog(
-    char lines[][BRIDGE_BACKLOG_LINE_MAX + 1],
-    size_t max_lines
-);
 void bridge_status_snapshot(bridge_status_snapshot_t *snapshot);
 void bridge_status_format_ready_text(char *buffer, size_t buffer_len);
 void bridge_status_format_ready_json(char *buffer, size_t buffer_len);

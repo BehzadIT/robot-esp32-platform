@@ -205,25 +205,6 @@ void bridge_status_record_backlog_line(const char *text)
     status_unlock();
 }
 
-size_t bridge_status_copy_backlog(char lines[][BRIDGE_BACKLOG_LINE_MAX + 1], size_t max_lines)
-{
-    size_t copied = 0;
-
-    if (!lines || max_lines == 0) {
-        return 0;
-    }
-
-    status_lock();
-    for (size_t i = 0; i < s_status.backlog_count && copied < max_lines; ++i) {
-        size_t index = (s_status.backlog_head + i) % BRIDGE_BACKLOG_LINES;
-        snprintf(lines[copied], BRIDGE_BACKLOG_LINE_MAX + 1, "%s", s_status.backlog[index]);
-        ++copied;
-    }
-    status_unlock();
-
-    return copied;
-}
-
 void bridge_status_snapshot(bridge_status_snapshot_t *snapshot)
 {
     uint64_t now_ms;
