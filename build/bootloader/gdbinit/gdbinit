@@ -1,0 +1,2 @@
+source /home/behzad/Projects/robot-esp32-platform/build/bootloader/gdbinit/symbols
+source /home/behzad/Projects/robot-esp32-platform/build/bootloader/gdbinit/connect

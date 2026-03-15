@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+/home/behzad/Projects/robot-esp32-platform/build/CMakeFiles/bootloader
+/home/behzad/Projects/robot-esp32-platform/build/CMakeFiles/bootloader.rule
+/home/behzad/Projects/robot-esp32-platform/build/CMakeFiles/bootloader-complete.rule
+/home/behzad/Projects/robot-esp32-platform/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/home/behzad/Projects/robot-esp32-platform/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/home/behzad/Projects/robot-esp32-platform/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/home/behzad/Projects/robot-esp32-platform/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/home/behzad/Projects/robot-esp32-platform/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/home/behzad/Projects/robot-esp32-platform/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/home/behzad/Projects/robot-esp32-platform/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
