@@ -1,0 +1,291 @@
+Command: /home/behzad/.espressif/python_env/idf5.5_py3.12_env/bin/python /home/behzad/Projects/esp-idf/tools/idf_monitor.py -p /dev/ttyUSB0 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 /home/behzad/Projects/robot-esp32-platform/build/robot_esp32_platform.elf /home/behzad/Projects/robot-esp32-platform/build/bootloader/bootloader.elf -m '/home/behzad/.espressif/python_env/idf5.5_py3.12_env/bin/python' '/home/behzad/Projects/esp-idf/tools/idf.py' '-p' '/dev/ttyUSB0'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Mar 15 2026 13:20:46[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v3.1[0m
+[0;32mI (33) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (37) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (40) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (57) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (80) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1e4e4h (124132) map[0m
+[0;32mI (130) esp_image: segment 1: paddr=0002e50c vaddr=3ff80000 size=00020h (    32) load[0m
+[0;32mI (131) esp_image: segment 2: paddr=0002e534 vaddr=3ffb0000 size=01ae4h (  6884) load[0m
+[0;32mI (137) esp_image: segment 3: paddr=00030020 vaddr=400d0020 size=9aa00h (633344) map[0m
+[0;32mI (358) esp_image: segment 4: paddr=000caa28 vaddr=3ffb1ae4 size=02474h (  9332) load[0m
+[0;32mI (362) esp_image: segment 5: paddr=000ccea4 vaddr=40080000 size=18e88h (102024) load[0m
+[0;32mI (414) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (414) boot: Disabling RNG early entropy source...[0m
+[0;32mI (424) cpu_start: Multicore app[0m
+[0;32mI (433) cpu_start: Pro cpu start user code[0m
+[0;32mI (433) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (433) app_init: Application information:[0m
+[0;32mI (433) app_init: Project name:     robot_esp32_platform[0m
+[0;32mI (438) app_init: App version:      1[0m
+[0;32mI (441) app_init: Compile time:     Mar 15 2026 13:36:37[0m
+[0;32mI (446) app_init: ELF file SHA256:  987e572bf...[0m
+[0;32mI (451) app_init: ESP-IDF:          v5.5[0m
+[0;32mI (454) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (458) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (462) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (466) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (472) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (477) heap_init: At 3FFC4B08 len 0001B4F8 (109 KiB): DRAM[0m
+[0;32mI (483) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (488) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (494) heap_init: At 40098E88 len 00007178 (28 KiB): IRAM[0m
+[0;32mI (500) spi_flash: detected chip: generic[0m
+[0;32mI (502) spi_flash: flash io: dio[0m
+[0;33mW (505) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (519) main_task: Started on CPU0[0m
+[0;32mI (529) main_task: Calling app_main()[0m
+[0;32mI (559) wifi:wifi driver task: 3ffcfe10, prio:23, stack:6656, core=0[0m
+[0;32mI (569) wifi:wifi firmware version: f3dbad7[0m
+[0;32mI (569) wifi:wifi certification version: v7.0[0m
+[0;32mI (569) wifi:config NVS flash: enabled[0m
+[0;32mI (569) wifi:config nano formatting: disabled[0m
+[0;32mI (579) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (579) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (589) wifi:Init management short buffer num: 32[0m
+[0;32mI (589) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (589) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (599) wifi:Init static rx buffer num: 10[0m
+[0;32mI (599) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (609) wifi_init: rx ba win: 6[0m
+[0;32mI (609) wifi_init: accept mbox: 6[0m
+[0;32mI (609) wifi_init: tcpip mbox: 32[0m
+[0;32mI (609) wifi_init: udp mbox: 6[0m
+[0;32mI (619) wifi_init: tcp mbox: 6[0m
+[0;32mI (619) wifi_init: tcp tx win: 5760[0m
+[0;32mI (619) wifi_init: tcp rx win: 5760[0m
+[0;32mI (629) wifi_init: tcp mss: 1440[0m
+[0;32mI (629) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (629) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;33mW (639) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;32mI (649) phy_init: phy_version 4860,6b7a6e5,Feb  6 2025,14:47:07[0m
+[0;32mI (729) wifi:mode : sta (90:15:06:94:41:ec)[0m
+[0;32mI (729) wifi:enable tsf[0m
+[0;32mI (729) wifi:Set ps type: 0, coexist: 0[0m
+
+[0;32mI (729) BRIDGE_NET: Wi-Fi started, connecting...[0m
+[0;32mI (739) uart: queue free spaces: 20[0m
+[0;32mI (739) TELEMETRY: Telemetry bridge started[0m
+[0;32mI (739) main_task: Returned from app_main()[0m
+[0;32mI (739) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (749) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (759) wifi:state: auth -> assoc (0x0)[0m
+[1;31mE (759) wifi:Association refused temporarily, comeback time 262144 (TUs) too long, max allowed 5000 (TUs)[0m
+[0;32mI (769) wifi:state: assoc -> init (0xd010)[0m
+[0;32mI (779) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;33mW (779) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (3199) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;32mI (3209) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (3209) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (3219) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (3229) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (3539) wifi:connected with BIZI-HOME-24, aid = 9, channel 1, BW20, bssid = 14:33:75:cb:c7:11[0m
+[0;32mI (3539) wifi:security: WPA2-PSK, phy: bgn, rssi: -46[0m
+[0;32mI (3549) wifi:pm start, type: 0[0m
+
+[0;32mI (3549) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (3559) BRIDGE_NET: Wi-Fi connected, waiting for IP...[0m
+[0;32mI (3569) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (5069) esp_netif_handlers: sta ip: 10.0.0.77, mask: 255.255.255.0, gw: 10.0.0.138[0m
+[0;32mI (5069) mdns_mem: mDNS task will be created from internal RAM[0m
+[0;32mI (5069) BRIDGE_NET: Bridge ready hostname=robot-esp32.local ip=10.0.0.77 ws=ws://robot-esp32.local/ws[0m
+[0;32mI (5229) wifi:<ba-add>idx:0 (ifx:0, 14:33:75:cb:c7:11), tid:5, ssn:0, winSize:64[0m
+[0;32mI (5529) wifi:<ba-add>idx:1 (ifx:0, 14:33:75:cb:c7:11), tid:0, ssn:6, winSize:64[0m
+[0;32mI (8439) BRIDGE_NET: WS post-handshake worker start fd=57[0m
+[0;32mI (8439) BRIDGE_NET: WS post-handshake fd=57 state=2[0m
+[0;32mI (8439) BRIDGE_NET: WS connect send fd=57 label=ready_text err=ESP_OK[0m
+[0;32mI (8449) BRIDGE_NET: WS connect send fd=57 label=ready_json err=ESP_OK[0m
+[0;32mI (8449) BRIDGE_NET: WS replay start fd=57 count=0[0m
+[0;32mI (8449) BRIDGE_NET: WS replay complete fd=57 count=0[0m
+[0;32mI (8459) BRIDGE_NET: WS client connected fd=57[0m
+[0;32mI (14389) wifi:bcn_timeout,ap_probe_send_start[0m
+[0;32mI (16889) wifi:ap_probe_send over, reset wifi status to disassoc[0m
+[0;32mI (16889) wifi:state: run -> init (0xc800)[0m
+[0;32mI (16899) wifi:pm stop, total sleep time: 0 us / 13347731 us[0m
+
+[0;32mI (16899) wifi:<ba-del>idx:1, tid:0[0m
+[0;32mI (16899) wifi:<ba-del>idx:0, tid:5[0m
+[0;32mI (16899) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (16919) BRIDGE_NET: WS client disconnected fd=57[0m
+[0;33mW (17019) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (19429) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (21849) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (24259) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (26679) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (29099) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (31509) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (33929) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (36349) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (38759) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (41179) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (43589) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (46009) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (48429) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (50839) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (53259) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (55669) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (58089) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (60509) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (62919) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (65339) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (67749) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (70169) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (72589) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (74999) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (77419) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (79829) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (82249) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (84669) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (87079) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (89499) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (91919) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (94329) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (96749) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (99159) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (101579) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (103999) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (106409) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (108829) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (111239) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (113659) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (116079) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (118489) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (120909) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (123319) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (125739) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (128159) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (130569) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (132989) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (135399) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (137819) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (140239) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (142649) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (145069) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (147489) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (149899) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (152319) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (154729) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (157149) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (159569) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (161979) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (164399) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (166809) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (169229) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (171649) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (174059) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (176479) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (178889) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (181309) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (183729) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (186139) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (188559) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (190969) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (193389) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (195809) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (198219) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (200639) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (203059) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (205469) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (207889) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (210299) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (212719) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (215139) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (217549) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (219969) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (222379) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (224799) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (227219) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (229629) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (232049) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (234459) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (236879) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (239299) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (241709) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (244129) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (246539) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (248959) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (251379) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (253789) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (256209) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (258629) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (261039) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (263459) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (265869) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (268289) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (270709) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (273119) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (275539) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (277949) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (280369) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (282789) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (285199) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (287619) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (290029) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (292449) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (294869) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (297279) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (299699) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (302119) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (304529) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (306949) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (309359) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (311779) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (314199) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (316609) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (319029) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (321439) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (323859) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (326279) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (328689) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (331109) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (333519) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (335939) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (338359) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (340769) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (343189) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (345599) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (348019) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (350439) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (352849) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (355269) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (357689) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (360099) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (362519) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (364929) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (367349) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (369769) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (372179) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (374599) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (377009) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (379429) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (381849) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (384259) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (386679) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (389089) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (391509) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (393929) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (396339) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (398759) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (401169) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (403589) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (406009) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m

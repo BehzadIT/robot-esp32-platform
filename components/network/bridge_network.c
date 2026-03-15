@@ -9,6 +9,7 @@
 #include "esp_http_server.h"
 #include "esp_log.h"
 #include "esp_netif.h"
+#include "esp_timer.h"
 #include "esp_wifi.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
@@ -25,15 +26,18 @@
 #define BRIDGE_MAX_CLIENTS 4
 #define BRIDGE_HTTPD_SOCKET_BUDGET (BRIDGE_MAX_CLIENTS + 3)
 #define BRIDGE_MESSAGE_MAX 512
+#define BRIDGE_POST_HANDSHAKE_DELAY_MS 50
 
 static const char *TAG = "BRIDGE_NET";
 
 typedef struct {
-    int fd;
-} ws_single_send_t;
+} ws_broadcast_t;
 
 typedef struct {
-} ws_broadcast_t;
+    httpd_handle_t server;
+    int fd;
+    esp_timer_handle_t timer;
+} ws_connect_work_t;
 
 static httpd_handle_t s_server;
 static esp_netif_t *s_sta_netif;
@@ -42,6 +46,13 @@ static int s_client_fds[BRIDGE_MAX_CLIENTS];
 static bool s_mdns_started;
 static bool s_have_ip;
 static esp_ip4_addr_t s_ip_addr;
+static uint64_t s_last_got_ip_ms;
+static uint64_t s_last_ws_connect_ms;
+
+static uint64_t uptime_ms(void)
+{
+    return (uint64_t)(esp_timer_get_time() / 1000ULL);
+}
 
 static void utf8_sanitize(char *s)
 {
@@ -170,39 +181,30 @@ static void start_mdns(void)
     s_mdns_started = true;
 }
 
+static const char *wifi_reason_string(uint8_t reason)
+{
+    switch ((wifi_err_reason_t)reason) {
+    case WIFI_REASON_BEACON_TIMEOUT:
+        return "beacon_timeout";
+    case WIFI_REASON_ASSOC_COMEBACK_TIME_TOO_LONG:
+        return "assoc_comeback_time_too_long";
+    case WIFI_REASON_NO_AP_FOUND:
+        return "no_ap_found";
+    case WIFI_REASON_AUTH_FAIL:
+        return "auth_fail";
+    case WIFI_REASON_ASSOC_FAIL:
+        return "assoc_fail";
+    case WIFI_REASON_HANDSHAKE_TIMEOUT:
+        return "handshake_timeout";
+    default:
+        return "unknown";
+    }
+}
+
 static void close_fn(void *ctx, int sockfd)
 {
     clients_remove(sockfd);
     ESP_LOGI(TAG, "WS client disconnected fd=%d", sockfd);
-}
-
-static void ws_send_single_work(void *arg)
-{
-    ws_single_send_t *work = arg;
-    char *text = (char *)(work + 1);
-
-    if (!s_server ||
-        httpd_ws_get_fd_info(s_server, work->fd) != HTTPD_WS_CLIENT_WEBSOCKET) {
-        clients_remove(work->fd);
-        free(work);
-        return;
-    }
-
-    utf8_sanitize(text);
-
-    httpd_ws_frame_t frame = {
-        .final = true,
-        .fragmented = false,
-        .type = HTTPD_WS_TYPE_TEXT,
-        .payload = (uint8_t *)text,
-        .len = strlen(text),
-    };
-
-    if (httpd_ws_send_frame_async(s_server, work->fd, &frame) != ESP_OK) {
-        clients_remove(work->fd);
-    }
-
-    free(work);
 }
 
 static void ws_broadcast_work(void *arg)
@@ -236,34 +238,6 @@ static void ws_broadcast_work(void *arg)
     xSemaphoreGive(s_clients_mtx);
 
     free(work);
-}
-
-static esp_err_t queue_text_to_fd(int fd, const char *text)
-{
-    size_t text_len;
-    ws_single_send_t *work;
-    char *payload;
-
-    if (!text || !text[0]) {
-        return ESP_OK;
-    }
-
-    text_len = strnlen(text, BRIDGE_MESSAGE_MAX - 1);
-    work = calloc(1, sizeof(*work) + text_len + 1);
-    if (!work) {
-        return ESP_ERR_NO_MEM;
-    }
-
-    work->fd = fd;
-    payload = (char *)(work + 1);
-    memcpy(payload, text, text_len);
-    payload[text_len] = '\0';
-
-    esp_err_t err = httpd_queue_work(s_server, ws_send_single_work, work);
-    if (err != ESP_OK) {
-        free(work);
-    }
-    return err;
 }
 
 void bridge_network_broadcast_text(const char *text)
@@ -300,46 +274,143 @@ static esp_err_t healthz_handler(httpd_req_t *req)
     return httpd_resp_sendstr(req, json);
 }
 
+static void ws_connect_work_free(ws_connect_work_t *work)
+{
+    if (work->timer) {
+        esp_timer_delete(work->timer);
+        work->timer = NULL;
+    }
+    free(work);
+}
+
+static esp_err_t ws_send_connect_frame_async(httpd_handle_t server,
+                                             int fd,
+                                             const char *label,
+                                             char *text,
+                                             size_t buffer_len)
+{
+    httpd_ws_frame_t frame = {0};
+
+    if (!text || !text[0] || buffer_len == 0) {
+        return ESP_OK;
+    }
+
+    if (text[strlen(text) - 1] != '\n') {
+        strlcat(text, "\n", buffer_len);
+    }
+    utf8_sanitize(text);
+
+    frame.final = true;
+    frame.fragmented = false;
+    frame.type = HTTPD_WS_TYPE_TEXT;
+    frame.payload = (uint8_t *)text;
+    frame.len = strlen(text);
+
+    esp_err_t send_err = httpd_ws_send_frame_async(server, fd, &frame);
+    ESP_LOGI(TAG, "WS connect send fd=%d label=%s err=%s", fd, label, esp_err_to_name(send_err));
+    return send_err;
+}
+
+static void ws_connect_work(void *arg)
+{
+    ws_connect_work_t *work = arg;
+    char ready_text[BRIDGE_MESSAGE_MAX];
+    char ready_json[BRIDGE_MESSAGE_MAX];
+    httpd_ws_client_info_t fd_info;
+    esp_err_t send_err;
+
+    ESP_LOGI(TAG, "WS connect work start fd=%d", work->fd);
+
+    /*
+     * The websocket URI handler runs in the handshake path. Queueing work back
+     * onto the HTTP server task after a short defer keeps the first frames on
+     * the documented async-send path instead of creating a separate task.
+     */
+    fd_info = work->server ? httpd_ws_get_fd_info(work->server, work->fd) : HTTPD_WS_CLIENT_INVALID;
+    ESP_LOGI(TAG, "WS connect work fd=%d state=%d", work->fd, (int)fd_info);
+
+    if (!s_server ||
+        s_server != work->server ||
+        fd_info != HTTPD_WS_CLIENT_WEBSOCKET) {
+        ESP_LOGW(TAG, "WS connect work aborted fd=%d", work->fd);
+        ws_connect_work_free(work);
+        return;
+    }
+
+    bridge_status_format_ready_text(ready_text, sizeof(ready_text));
+    send_err = ws_send_connect_frame_async(work->server, work->fd, "ready_text", ready_text, sizeof(ready_text));
+    if (send_err != ESP_OK) {
+        ws_connect_work_free(work);
+        return;
+    }
+
+    bridge_status_format_ready_json(ready_json, sizeof(ready_json));
+    send_err = ws_send_connect_frame_async(work->server, work->fd, "ready_json", ready_json, sizeof(ready_json));
+    if (send_err != ESP_OK) {
+        ws_connect_work_free(work);
+        return;
+    }
+
+    if (!clients_try_add(work->fd)) {
+        ESP_LOGW(TAG, "WS client race lost during connect fd=%d", work->fd);
+    } else {
+        s_last_ws_connect_ms = uptime_ms();
+        ESP_LOGI(TAG, "WS client connected fd=%d", work->fd);
+    }
+
+    ws_connect_work_free(work);
+}
+
+static void ws_connect_timer_cb(void *arg)
+{
+    ws_connect_work_t *work = arg;
+    esp_err_t err = httpd_queue_work(work->server, ws_connect_work, work);
+
+    ESP_LOGI(TAG, "WS connect queue fd=%d err=%s", work->fd, esp_err_to_name(err));
+    if (err != ESP_OK) {
+        ws_connect_work_free(work);
+    }
+}
+
 static esp_err_t ws_handler(httpd_req_t *req)
 {
     if (req->method == HTTP_GET) {
-        char backlog[BRIDGE_BACKLOG_LINES][BRIDGE_BACKLOG_LINE_MAX + 1];
-        size_t backlog_count;
-        char ready_text[BRIDGE_MESSAGE_MAX];
-        char ready_json[BRIDGE_MESSAGE_MAX];
+        ws_connect_work_t *work;
         int fd = httpd_req_to_sockfd(req);
+        esp_timer_create_args_t timer_args = {0};
+        esp_err_t err;
 
         if (!clients_has_capacity()) {
             httpd_resp_set_status(req, "503 Service Unavailable");
             return httpd_resp_sendstr(req, "bridge client limit reached");
         }
 
-        /*
-         * Keep the first frame terminal-friendly for websocat users, then send
-         * structured JSON second for future tooling. The banner is per-client,
-         * not broadcast, so reconnecting clients get a fresh readiness line
-         * without spamming other observers.
-         */
-        bridge_status_format_ready_text(ready_text, sizeof(ready_text));
-        bridge_status_format_ready_json(ready_json, sizeof(ready_json));
-        queue_text_to_fd(fd, ready_text);
-        queue_text_to_fd(fd, ready_json);
-        backlog_count = bridge_status_copy_backlog(backlog, BRIDGE_BACKLOG_LINES);
-        for (size_t i = 0; i < backlog_count; ++i) {
-            queue_text_to_fd(fd, backlog[i]);
+        work = calloc(1, sizeof(*work));
+        if (!work) {
+            httpd_resp_set_status(req, "500 Internal Server Error");
+            return httpd_resp_sendstr(req, "bridge connect worker alloc failed");
+        }
+        work->server = req->handle;
+        work->fd = fd;
+        timer_args.callback = ws_connect_timer_cb;
+        timer_args.arg = work;
+        timer_args.name = "ws_connect";
+
+        err = esp_timer_create(&timer_args, &work->timer);
+        if (err != ESP_OK) {
+            free(work);
+            httpd_resp_set_status(req, "500 Internal Server Error");
+            return httpd_resp_sendstr(req, "bridge connect timer create failed");
         }
 
-        /*
-         * Replay uses a snapshot and only then joins the live registry. That
-         * keeps ordering simple and avoids interleaving live traffic into the
-         * replay burst, at the cost of a tiny acceptable blind spot.
-         */
-        if (!clients_try_add(fd)) {
-            ESP_LOGW(TAG, "WS client race lost during replay fd=%d", fd);
-            return ESP_OK;
+        err = esp_timer_start_once(work->timer, BRIDGE_POST_HANDSHAKE_DELAY_MS * 1000ULL);
+        if (err != ESP_OK) {
+            ws_connect_work_free(work);
+            httpd_resp_set_status(req, "500 Internal Server Error");
+            return httpd_resp_sendstr(req, "bridge connect timer start failed");
         }
+        ESP_LOGI(TAG, "WS connect timer armed fd=%d delay_ms=%d", fd, BRIDGE_POST_HANDSHAKE_DELAY_MS);
 
-        ESP_LOGI(TAG, "WS client connected fd=%d", fd);
         return ESP_OK;
     }
 
@@ -439,7 +510,24 @@ static void on_wifi_event(void *arg, esp_event_base_t base, int32_t id, void *da
         return;
     }
 
+    if (id == WIFI_EVENT_STA_BEACON_TIMEOUT) {
+        bridge_status_snapshot_t snapshot = {0};
+        bridge_status_snapshot(&snapshot);
+        ESP_LOGW(
+            TAG,
+            "Wi-Fi beacon timeout ws_clients=%lu uptime_ms=%llu online_ms=%llu since_ws_ms=%llu",
+            (unsigned long)snapshot.ws_clients,
+            (unsigned long long)uptime_ms(),
+            (unsigned long long)(s_last_got_ip_ms ? (uptime_ms() - s_last_got_ip_ms) : 0),
+            (unsigned long long)(s_last_ws_connect_ms ? (uptime_ms() - s_last_ws_connect_ms) : 0)
+        );
+        return;
+    }
+
     if (id == WIFI_EVENT_STA_DISCONNECTED) {
+        wifi_event_sta_disconnected_t *event = data;
+        bridge_status_snapshot_t snapshot = {0};
+        bridge_status_snapshot(&snapshot);
         /*
          * ESP-IDF clears TCP state on station disconnect. Rebuilding the HTTP
          * server avoids keeping sockets around in a wrong state after Wi-Fi loss.
@@ -450,7 +538,17 @@ static void on_wifi_event(void *arg, esp_event_base_t base, int32_t id, void *da
         bridge_status_clear_ip();
         stop_webserver();
         stop_mdns();
-        ESP_LOGW(TAG, "Wi-Fi disconnected, retrying...");
+        ESP_LOGW(
+            TAG,
+            "Wi-Fi disconnected reason=%u(%s) rssi=%d ws_clients=%lu uptime_ms=%llu online_ms=%llu since_ws_ms=%llu, retrying...",
+            event ? event->reason : 0,
+            event ? wifi_reason_string(event->reason) : "unknown",
+            event ? event->rssi : 0,
+            (unsigned long)snapshot.ws_clients,
+            (unsigned long long)uptime_ms(),
+            (unsigned long long)(s_last_got_ip_ms ? (uptime_ms() - s_last_got_ip_ms) : 0),
+            (unsigned long long)(s_last_ws_connect_ms ? (uptime_ms() - s_last_ws_connect_ms) : 0)
+        );
         esp_wifi_connect();
     }
 }
@@ -468,6 +566,7 @@ static void on_ip_event(void *arg, esp_event_base_t base, int32_t id, void *data
 
         s_have_ip = true;
         s_ip_addr = event->ip_info.ip;
+        s_last_got_ip_ms = uptime_ms();
         bridge_status_set_wifi_state(BRIDGE_WIFI_STATE_ONLINE);
         set_status_ip(&event->ip_info.ip);
 

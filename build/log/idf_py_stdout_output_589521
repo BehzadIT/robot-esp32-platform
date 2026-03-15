@@ -1,0 +1,370 @@
+Command: /home/behzad/.espressif/python_env/idf5.5_py3.12_env/bin/python /home/behzad/Projects/esp-idf/tools/idf_monitor.py -p /dev/ttyUSB0 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 /home/behzad/Projects/robot-esp32-platform/build/robot_esp32_platform.elf /home/behzad/Projects/robot-esp32-platform/build/bootloader/bootloader.elf -m '/home/behzad/.espressif/python_env/idf5.5_py3.12_env/bin/python' '/home/behzad/Projects/esp-idf/tools/idf.py' '-p' '/dev/ttyUSB0'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Mar 15 2026 13:20:46[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v3.1[0m
+[0;32mI (33) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (37) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (40) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (57) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (80) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1e314h (123668) map[0m
+[0;32mI (130) esp_image: segment 1: paddr=0002e33c vaddr=3ff80000 size=00020h (    32) load[0m
+[0;32mI (130) esp_image: segment 2: paddr=0002e364 vaddr=3ffb0000 size=01cb4h (  7348) load[0m
+[0;32mI (137) esp_image: segment 3: paddr=00030020 vaddr=400d0020 size=9a774h (632692) map[0m
+[0;32mI (358) esp_image: segment 4: paddr=000ca79c vaddr=3ffb1cb4 size=022a4h (  8868) load[0m
+[0;32mI (361) esp_image: segment 5: paddr=000cca48 vaddr=40080000 size=18e88h (102024) load[0m
+[0;32mI (413) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (413) boot: Disabling RNG early entropy source...[0m
+[0;32mI (424) cpu_start: Multicore app[0m
+[0;32mI (432) cpu_start: Pro cpu start user code[0m
+[0;32mI (432) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (433) app_init: Application information:[0m
+[0;32mI (433) app_init: Project name:     robot_esp32_platform[0m
+[0;32mI (438) app_init: App version:      1[0m
+[0;32mI (441) app_init: Compile time:     Mar 15 2026 13:36:37[0m
+[0;32mI (446) app_init: ELF file SHA256:  5e4dc3a86...[0m
+[0;32mI (450) app_init: ESP-IDF:          v5.5[0m
+[0;32mI (454) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (458) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (462) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (466) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (472) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (477) heap_init: At 3FFC4B08 len 0001B4F8 (109 KiB): DRAM[0m
+[0;32mI (482) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (488) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (493) heap_init: At 40098E88 len 00007178 (28 KiB): IRAM[0m
+[0;32mI (500) spi_flash: detected chip: generic[0m
+[0;32mI (502) spi_flash: flash io: dio[0m
+[0;33mW (505) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (518) main_task: Started on CPU0[0m
+[0;32mI (528) main_task: Calling app_main()[0m
+[0;32mI (558) wifi:wifi driver task: 3ffcfd8c, prio:23, stack:6656, core=0[0m
+[0;32mI (568) wifi:wifi firmware version: f3dbad7[0m
+[0;32mI (568) wifi:wifi certification version: v7.0[0m
+[0;32mI (568) wifi:config NVS flash: enabled[0m
+[0;32mI (568) wifi:config nano formatting: disabled[0m
+[0;32mI (578) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (578) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (578) wifi:Init management short buffer num: 32[0m
+[0;32mI (588) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (588) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (598) wifi:Init static rx buffer num: 10[0m
+[0;32mI (598) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (608) wifi_init: rx ba win: 6[0m
+[0;32mI (608) wifi_init: accept mbox: 6[0m
+[0;32mI (608) wifi_init: tcpip mbox: 32[0m
+[0;32mI (608) wifi_init: udp mbox: 6[0m
+[0;32mI (618) wifi_init: tcp mbox: 6[0m
+[0;32mI (618) wifi_init: tcp tx win: 5760[0m
+[0;32mI (618) wifi_init: tcp rx win: 5760[0m
+[0;32mI (628) wifi_init: tcp mss: 1440[0m
+[0;32mI (628) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (628) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;33mW (638) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;32mI (638) phy_init: phy_version 4860,6b7a6e5,Feb  6 2025,14:47:07[0m
+[0;32mI (728) wifi:mode : sta (90:15:06:94:41:ec)[0m
+[0;32mI (728) wifi:enable tsf[0m
+[0;32mI (728) wifi:Set ps type: 0, coexist: 0[0m
+
+[0;32mI (728) BRIDGE_NET: Wi-Fi started, connecting...[0m
+[0;32mI (738) uart: queue free spaces: 20[0m
+[0;32mI (738) TELEMETRY: Telemetry bridge started[0m
+[0;32mI (738) main_task: Returned from app_main()[0m
+[0;32mI (738) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (748) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (758) wifi:state: auth -> assoc (0x0)[0m
+[1;31mE (758) wifi:Association refused temporarily, comeback time 262144 (TUs) too long, max allowed 5000 (TUs)[0m
+[0;32mI (768) wifi:state: assoc -> init (0xd010)[0m
+[0;32mI (778) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;33mW (778) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (3198) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;32mI (3208) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (3208) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (3218) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (3228) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (3538) wifi:connected with BIZI-HOME-24, aid = 9, channel 1, BW20, bssid = 14:33:75:cb:c7:11[0m
+[0;32mI (3538) wifi:security: WPA2-PSK, phy: bgn, rssi: -48[0m
+[0;32mI (3538) wifi:pm start, type: 0[0m
+
+[0;32mI (3538) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (3548) BRIDGE_NET: Wi-Fi connected, waiting for IP...[0m
+[0;32mI (3598) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (4788) esp_netif_handlers: sta ip: 10.0.0.77, mask: 255.255.255.0, gw: 10.0.0.138[0m
+[0;32mI (4788) mdns_mem: mDNS task will be created from internal RAM[0m
+[0;32mI (4788) BRIDGE_NET: Bridge ready hostname=robot-esp32.local ip=10.0.0.77 ws=ws://robot-esp32.local/ws[0m
+[0;32mI (5238) wifi:<ba-add>idx:0 (ifx:0, 14:33:75:cb:c7:11), tid:5, ssn:0, winSize:64[0m
+[0;32mI (5528) wifi:<ba-add>idx:1 (ifx:0, 14:33:75:cb:c7:11), tid:0, ssn:4, winSize:64[0m
+[0;32mI (14558) BRIDGE_NET: WS client connected fd=57[0m
+Guru Meditation Error: Core  0 panic'ed (LoadProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4008c018  PS      : 0x00060033  A0      : 0x8008a2b7  A1      : 0x3ffb1ef0  
+A2      : 0x3ffcdc90  A3      : 0x3ffb1f50  A4      : 0x00000000  A5      : 0x00000000  
+A6      : 0x00000000  A7      : 0x8015b432  A8      : 0x3ffcfda4  A9      : 0x3ffb1ec0  
+A10     : 0x00000001  A11     : 0xffffffff  A12     : 0x00000008  A13     : 0x00060023  
+A14     : 0x00000017  A15     : 0x0000cdcd  SAR     : 0x00000014  EXCCAUSE: 0x0000001c  
+EXCVADDR: 0x8015b45a  LBEG    : 0x4000c2e0  LEND    : 0x4000c2f6  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x4008c015:0x3ffb1ef0 0x4008a2b4:0x3ffb1f10 0x40084992:0x3ffb1f30 0x40084a3a:0x3ffb1f50 0x40084b3a:0x3ffb1f80 0x40084ef5:0x3ffb1fa0 0x400833a9:0x3ffb1fc0 0x400da18d:0x3ffdc780 0x401001df:0x3ffdc7e0 0x401002c2:0x3ffdc830 0x4008a6f5:0x3ffdc850
+
+
+
+
+ELF file SHA256: 5e4dc3a86
+
+Rebooting...
+ets Jul 29 2019 12:21:46
+
+rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Mar 15 2026 13:20:46[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v3.1[0m
+[0;32mI (33) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (37) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (40) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (48) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (57) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (70) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (80) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1e314h (123668) map[0m
+[0;32mI (130) esp_image: segment 1: paddr=0002e33c vaddr=3ff80000 size=00020h (    32) load[0m
+[0;32mI (130) esp_image: segment 2: paddr=0002e364 vaddr=3ffb0000 size=01cb4h (  7348) load[0m
+[0;32mI (137) esp_image: segment 3: paddr=00030020 vaddr=400d0020 size=9a774h (632692) map[0m
+[0;32mI (358) esp_image: segment 4: paddr=000ca79c vaddr=3ffb1cb4 size=022a4h (  8868) load[0m
+[0;32mI (361) esp_image: segment 5: paddr=000cca48 vaddr=40080000 size=18e88h (102024) load[0m
+[0;32mI (413) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (413) boot: Disabling RNG early entropy source...[0m
+[0;32mI (424) cpu_start: Multicore app[0m
+[0;32mI (432) cpu_start: Pro cpu start user code[0m
+[0;32mI (432) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (432) app_init: Application information:[0m
+[0;32mI (432) app_init: Project name:     robot_esp32_platform[0m
+[0;32mI (437) app_init: App version:      1[0m
+[0;32mI (441) app_init: Compile time:     Mar 15 2026 13:36:37[0m
+[0;32mI (446) app_init: ELF file SHA256:  5e4dc3a86...[0m
+[0;32mI (450) app_init: ESP-IDF:          v5.5[0m
+[0;32mI (454) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (458) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (462) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (466) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (472) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (477) heap_init: At 3FFC4B08 len 0001B4F8 (109 KiB): DRAM[0m
+[0;32mI (482) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (488) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (493) heap_init: At 40098E88 len 00007178 (28 KiB): IRAM[0m
+[0;32mI (500) spi_flash: detected chip: generic[0m
+[0;32mI (502) spi_flash: flash io: dio[0m
+[0;33mW (505) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (518) main_task: Started on CPU0[0m
+[0;32mI (528) main_task: Calling app_main()[0m
+[0;32mI (558) wifi:wifi driver task: 3ffcfd8c, prio:23, stack:6656, core=0[0m
+[0;32mI (568) wifi:wifi firmware version: f3dbad7[0m
+[0;32mI (568) wifi:wifi certification version: v7.0[0m
+[0;32mI (568) wifi:config NVS flash: enabled[0m
+[0;32mI (568) wifi:config nano formatting: disabled[0m
+[0;32mI (578) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (578) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (578) wifi:Init management short buffer num: 32[0m
+[0;32mI (588) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (588) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (598) wifi:Init static rx buffer num: 10[0m
+[0;32mI (598) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (608) wifi_init: rx ba win: 6[0m
+[0;32mI (608) wifi_init: accept mbox: 6[0m
+[0;32mI (608) wifi_init: tcpip mbox: 32[0m
+[0;32mI (608) wifi_init: udp mbox: 6[0m
+[0;32mI (618) wifi_init: tcp mbox: 6[0m
+[0;32mI (618) wifi_init: tcp tx win: 5760[0m
+[0;32mI (618) wifi_init: tcp rx win: 5760[0m
+[0;32mI (628) wifi_init: tcp mss: 1440[0m
+[0;32mI (628) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (628) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;33mW (638) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;32mI (638) phy_init: phy_version 4860,6b7a6e5,Feb  6 2025,14:47:07[0m
+[0;32mI (728) wifi:mode : sta (90:15:06:94:41:ec)[0m
+[0;32mI (728) wifi:enable tsf[0m
+[0;32mI (728) wifi:Set ps type: 0, coexist: 0[0m
+
+[0;32mI (728) BRIDGE_NET: Wi-Fi started, connecting...[0m
+[0;32mI (738) uart: queue free spaces: 20[0m
+[0;32mI (738) TELEMETRY: Telemetry bridge started[0m
+[0;32mI (738) main_task: Returned from app_main()[0m
+[0;32mI (738) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (748) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (758) wifi:state: auth -> assoc (0x0)[0m
+[1;31mE (768) wifi:Association refused temporarily, comeback time 262144 (TUs) too long, max allowed 5000 (TUs)[0m
+[0;32mI (768) wifi:state: assoc -> init (0xd010)[0m
+[0;32mI (778) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;33mW (778) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (3198) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;32mI (3208) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (3208) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (3218) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (3228) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (3528) wifi:connected with BIZI-HOME-24, aid = 9, channel 1, BW20, bssid = 14:33:75:cb:c7:11[0m
+[0;32mI (3528) wifi:security: WPA2-PSK, phy: bgn, rssi: -49[0m
+[0;32mI (3538) wifi:pm start, type: 0[0m
+
+[0;32mI (3538) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (3548) BRIDGE_NET: Wi-Fi connected, waiting for IP...[0m
+[0;32mI (3588) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (5168) esp_netif_handlers: sta ip: 10.0.0.77, mask: 255.255.255.0, gw: 10.0.0.138[0m
+[0;32mI (5168) mdns_mem: mDNS task will be created from internal RAM[0m
+[0;32mI (5168) BRIDGE_NET: Bridge ready hostname=robot-esp32.local ip=10.0.0.77 ws=ws://robot-esp32.local/ws[0m
+[0;32mI (5228) wifi:<ba-add>idx:0 (ifx:0, 14:33:75:cb:c7:11), tid:5, ssn:0, winSize:64[0m
+[0;32mI (5528) wifi:<ba-add>idx:1 (ifx:0, 14:33:75:cb:c7:11), tid:0, ssn:6, winSize:64[0m
+
+assert failed: heap_caps_free heap_caps_base.c:80 (heap != NULL && "free() target pointer is outside heap areas")
+
+
+Backtrace: 0x40081bb1:0x3ffc77d0 0x40089bd9:0x3ffc77f0 0x40091ad1:0x3ffc7810 0x400823b3:0x3ffc7930 0x40091ba5:0x3ffc7950 0x40154ceb:0x3ffc7970 0x4008b597:0x3ffc7990 0x4008b656:0x3ffc79b0 0x4008b787:0x3ffc79d0 0x4008a6f5:0x3ffc79f0
+
+
+
+
+ELF file SHA256: 5e4dc3a86
+
+Rebooting...
+ets Jul 29 2019 12:21:46
+
+rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Mar 15 2026 13:20:46[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v3.1[0m
+[0;32mI (33) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (37) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (40) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (48) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (57) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (70) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (80) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1e314h (123668) map[0m
+[0;32mI (130) esp_image: segment 1: paddr=0002e33c vaddr=3ff80000 size=00020h (    32) load[0m
+[0;32mI (130) esp_image: segment 2: paddr=0002e364 vaddr=3ffb0000 size=01cb4h (  7348) load[0m
+[0;32mI (137) esp_image: segment 3: paddr=00030020 vaddr=400d0020 size=9a774h (632692) map[0m
+[0;32mI (358) esp_image: segment 4: paddr=000ca79c vaddr=3ffb1cb4 size=022a4h (  8868) load[0m
+[0;32mI (361) esp_image: segment 5: paddr=000cca48 vaddr=40080000 size=18e88h (102024) load[0m
+[0;32mI (413) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (413) boot: Disabling RNG early entropy source...[0m
+[0;32mI (424) cpu_start: Multicore app[0m
+[0;32mI (432) cpu_start: Pro cpu start user code[0m
+[0;32mI (432) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (432) app_init: Application information:[0m
+[0;32mI (432) app_init: Project name:     robot_esp32_platform[0m
+[0;32mI (437) app_init: App version:      1[0m
+[0;32mI (441) app_init: Compile time:     Mar 15 2026 13:36:37[0m
+[0;32mI (446) app_init: ELF file SHA256:  5e4dc3a86...[0m
+[0;32mI (450) app_init: ESP-IDF:          v5.5[0m
+[0;32mI (454) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (458) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (462) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (466) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (472) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (477) heap_init: At 3FFC4B08 len 0001B4F8 (109 KiB): DRAM[0m
+[0;32mI (482) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (487) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (493) heap_init: At 40098E88 len 00007178 (28 KiB): IRAM[0m
+[0;32mI (500) spi_flash: detected chip: generic[0m
+[0;32mI (502) spi_flash: flash io: dio[0m
+[0;33mW (505) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (518) main_task: Started on CPU0[0m
+[0;32mI (528) main_task: Calling app_main()[0m
+[0;32mI (558) wifi:wifi driver task: 3ffcfd8c, prio:23, stack:6656, core=0[0m
+[0;32mI (568) wifi:wifi firmware version: f3dbad7[0m
+[0;32mI (568) wifi:wifi certification version: v7.0[0m
+[0;32mI (568) wifi:config NVS flash: enabled[0m
+[0;32mI (568) wifi:config nano formatting: disabled[0m
+[0;32mI (578) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (578) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (578) wifi:Init management short buffer num: 32[0m
+[0;32mI (588) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (588) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (598) wifi:Init static rx buffer num: 10[0m
+[0;32mI (598) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (608) wifi_init: rx ba win: 6[0m
+[0;32mI (608) wifi_init: accept mbox: 6[0m
+[0;32mI (608) wifi_init: tcpip mbox: 32[0m
+[0;32mI (608) wifi_init: udp mbox: 6[0m
+[0;32mI (618) wifi_init: tcp mbox: 6[0m
+[0;32mI (618) wifi_init: tcp tx win: 5760[0m
+[0;32mI (618) wifi_init: tcp rx win: 5760[0m
+[0;32mI (628) wifi_init: tcp mss: 1440[0m
+[0;32mI (628) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (628) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;33mW (638) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;32mI (638) phy_init: phy_version 4860,6b7a6e5,Feb  6 2025,14:47:07[0m
+[0;32mI (728) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (818) wifi:mode : sta (90:15:06:94:41:ec)[0m
+[0;32mI (818) wifi:enable tsf[0m
+[0;32mI (818) wifi:Set ps type: 0, coexist: 0[0m
+
+[0;32mI (818) BRIDGE_NET: Wi-Fi started, connecting...[0m
+[0;32mI (828) uart: queue free spaces: 20[0m
+[0;32mI (828) TELEMETRY: Telemetry bridge started[0m
+[0;32mI (828) main_task: Returned from app_main()[0m
+[0;32mI (828) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (838) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (848) wifi:state: auth -> assoc (0x0)[0m
+[1;31mE (848) wifi:Association refused temporarily, comeback time 262144 (TUs) too long, max allowed 5000 (TUs)[0m
+[0;32mI (858) wifi:state: assoc -> init (0xd010)[0m
+[0;32mI (868) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;33mW (868) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;33mW (3288) BRIDGE_NET: Wi-Fi disconnected, retrying...[0m
+[0;32mI (3298) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (3298) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (3308) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (3318) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (3628) wifi:connected with BIZI-HOME-24, aid = 9, channel 1, BW20, bssid = 14:33:75:cb:c7:11[0m
+[0;32mI (3628) wifi:security: WPA2-PSK, phy: bgn, rssi: -50[0m
+[0;32mI (3628) wifi:pm start, type: 0[0m
+
+[0;32mI (3628) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (3648) BRIDGE_NET: Wi-Fi connected, waiting for IP...[0m
+[0;32mI (3668) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (4848) esp_netif_handlers: sta ip: 10.0.0.77, mask: 255.255.255.0, gw: 10.0.0.138[0m
+[0;32mI (4848) mdns_mem: mDNS task will be created from internal RAM[0m
+[0;32mI (4848) BRIDGE_NET: Bridge ready hostname=robot-esp32.local ip=10.0.0.77 ws=ws://robot-esp32.local/ws[0m
+[0;32mI (5328) wifi:<ba-add>idx:0 (ifx:0, 14:33:75:cb:c7:11), tid:5, ssn:0, winSize:64[0m
+[0;32mI (5628) wifi:<ba-add>idx:1 (ifx:0, 14:33:75:cb:c7:11), tid:0, ssn:4, winSize:64[0m

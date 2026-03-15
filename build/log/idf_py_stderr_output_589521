@@ -1,0 +1,34 @@
+Command: /home/behzad/.espressif/python_env/idf5.5_py3.12_env/bin/python /home/behzad/Projects/esp-idf/tools/idf_monitor.py -p /dev/ttyUSB0 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 /home/behzad/Projects/robot-esp32-platform/build/robot_esp32_platform.elf /home/behzad/Projects/robot-esp32-platform/build/bootloader/bootloader.elf -m '/home/behzad/.espressif/python_env/idf5.5_py3.12_env/bin/python' '/home/behzad/Projects/esp-idf/tools/idf.py' '-p' '/dev/ttyUSB0'
+[0;33m--- esp-idf-monitor 1.7.0 on /dev/ttyUSB0 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0m--- 0x40080400: [0;33m_invalid_pc_placeholder[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m2235[0m
+[0m--- 0x40080638: [0;33mcall_start_cpu0[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4008c018: [0;33mxTaskRemoveFromEventList[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m3895[0m
+[0m--- 0x4000c2e0: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x4000c2f6: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x4008c015: [0;33mxTaskRemoveFromEventList[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m3895[0m
+[0m--- 0x4008a2b4: [0;33mxQueueGenericSendFromISR[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m1264[0m
+[0m--- 0x40084992: [0;33mqueue_send_from_isr_wrapper[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/esp_wifi/esp32/esp_adapter.c[0m[0m:[1;31m305[0m
+[0m--- 0x40084a3a: [0;33mpp_post[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x40084b3a: [0;33mlmacPostTxComplete[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x40084ef5: [0;33mwDev_ProcessFiq[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x400833a9: [0;33m_xt_lowint1[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x400da18d: [0;33mesp_vfs_select[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m1495[0m
+[0m--- 0x401001df: [0;33mhttpd_server[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m294[0m
+[0m--- 0x401002c2: [0;33mhttpd_thread[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m339[0m
+[0m--- 0x4008a6f5: [0;33mvPortTaskWrapper[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x40080400: [0;33m_invalid_pc_placeholder[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m2235[0m
+[0m--- 0x40080638: [0;33mcall_start_cpu0[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x40081bb1: [0;33mpanic_abort[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/esp_system/panic.c[0m[0m:[1;31m469[0m
+[0m--- 0x40089bd9: [0;33mesp_system_abort[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x40091ad1: [0;33m__assert_func[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/newlib/src/assert.c[0m[0m:[1;31m80[0m
+[0m--- 0x400823b3: [0;33mheap_caps_free[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/heap/heap_caps_base.c[0m[0m:[1;31m80[0m
+[0m--- 0x40091ba5: [0;33m_free_r[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/newlib/src/heap.c[0m[0m:[1;31m57[0m
+[0m--- 0x40154ceb: [0;33m_reclaim_reent[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/reent/reent.c[0m[0m:[1;31m72[0m
+[0m--- 0x4008b597: [0;33mprvDeleteTCB[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4906[0m
+[0m--- 0x4008b656: [0;33mprvCheckTasksWaitingTermination[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4609[0m
+[0m--- 0x4008b787: [0;33mprvIdleTask[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4301[0m
+[0m--- 0x4008a6f5: [0;33mvPortTaskWrapper[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x40080400: [0;33m_invalid_pc_placeholder[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m2235[0m
+[0m--- 0x40080638: [0;33mcall_start_cpu0[0m[0m at [0;32m/home/behzad/Projects/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m

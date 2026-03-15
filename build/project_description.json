@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "robot_esp32_platform",
-    "project_version":    "1",
+    "project_version":    "d4ba2a0-dirty",
     "project_path":       "/home/behzad/Projects/robot-esp32-platform",
     "idf_path":           "/home/behzad/Projects/esp-idf",
     "build_dir":          "/home/behzad/Projects/robot-esp32-platform/build",
@@ -1311,7 +1311,7 @@
             "type": "LIBRARY",
             "lib": "__idf_network",
             "reqs": [ "diagnostics", "esp_event", "esp_http_server", "esp_netif", "esp_wifi", "espressif__mdns" ],
-            "priv_reqs": [ "freertos", "espressif__mdns" ],
+            "priv_reqs": [ "freertos", "esp_timer", "espressif__mdns" ],
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__mdns" ],
             "file": "/home/behzad/Projects/robot-esp32-platform/build/esp-idf/network/libnetwork.a",
@@ -3019,7 +3019,7 @@
             "dir": "/home/behzad/Projects/robot-esp32-platform/components/network",
             "lib": "__idf_network",
             "reqs": [ "diagnostics", "esp_event", "esp_http_server", "esp_netif", "esp_wifi", "espressif__mdns" ],
-            "priv_reqs": [ "freertos", "espressif__mdns" ],
+            "priv_reqs": [ "freertos", "esp_timer", "espressif__mdns" ],
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__mdns" ],
             "include_dirs": [ "include" ]
