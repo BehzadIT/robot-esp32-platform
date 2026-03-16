@@ -4,14 +4,14 @@
 This repo contains the robot ESP32 platform firmware.
 
 ## Instructions
-- Before changing code here, read the shared docs root at `/home/behzad/Projects/robot-project-docs`.
+- Before changing code here, read the shared docs root at `robot-project-docs`.
 - At minimum, review:
-  - `/home/behzad/Projects/robot-project-docs/overview/current-architecture.md`
-  - `/home/behzad/Projects/robot-project-docs/overview/design-decisions.md`
-  - `/home/behzad/Projects/robot-project-docs/control-and-apps/esp32-telemetry-bridge.md`
-  - `/home/behzad/Projects/robot-project-docs/interfaces/telemetry-protocol.md`
-  - `/home/behzad/Projects/robot-project-docs/electrical/wiring-and-pinout.md`
-  - `/home/behzad/Projects/robot-project-docs/verification/known-issues-and-open-questions.md`
+  - `robot-project-docs/overview/current-architecture.md`
+  - `robot-project-docs/overview/design-decisions.md`
+  - `robot-project-docs/control-and-apps/esp32-telemetry-bridge.md`
+  - `robot-project-docs/interfaces/telemetry-protocol.md`
+  - `robot-project-docs/electrical/wiring-and-pinout.md`
+  - `robot-project-docs/verification/known-issues-and-open-questions.md`
 - Preserve the subsystem boundary: the ESP32 is a passive log bridge, not the motor controller.
 - Treat the repo identity as broader than the currently implemented capability. The current primary capability is the passive telemetry bridge, but future ESP32 capabilities may be added if they preserve the documented ownership boundaries.
 - Do not add robot control, safety logic, or control-loop ownership here unless the architecture docs are intentionally changed.

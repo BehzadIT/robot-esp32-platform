@@ -15,4 +15,4 @@ This repository contains the ESP32 firmware platform for the robot project.
 - `components/config/`, `components/network/`, and `components/diagnostics/` reserve clean boundaries for future platform capabilities.
 
 ## Canonical project context
-- Shared architecture and subsystem boundaries live in `/home/behzad/Projects/robot-project-docs`.
+- Shared architecture and subsystem boundaries live in `robot-project-docs`.
