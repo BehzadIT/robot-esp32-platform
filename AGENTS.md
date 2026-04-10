@@ -15,6 +15,9 @@ This repo contains the robot ESP32 platform firmware.
   - `../docs/verification/known-issues-and-open-questions.md`
 - This repository is a submodule of the parent `ai-robot` integration
   workspace, but it keeps its own Git history and release cycle.
+- ESP32-specific implementation docs live in `docs/`. Shared system behavior,
+  telemetry boundaries, hardware assumptions, and integration risks live in the
+  parent `../docs` tree when available.
 - Preserve the subsystem boundary: the ESP32 is a passive log bridge, not the motor controller.
 - Treat the repo identity as broader than the currently implemented capability. The current primary capability is the passive telemetry bridge, but future ESP32 capabilities may be added if they preserve the documented ownership boundaries.
 - Do not add robot control, safety logic, or control-loop ownership here unless the architecture docs are intentionally changed.
@@ -35,6 +38,9 @@ This repo contains the robot ESP32 platform firmware.
 - If implementation and docs diverge, update the shared docs and note unresolved issues in verification.
 - If the change updates a known-good integrated robot state, update the parent
   repository's submodule pointer after committing this repo.
+- When working from a standalone clone where `../docs` is unavailable, rely on
+  this repo's `docs/` directory and note that parent context could not be
+  checked.
 
 ## Communication Contract
 - For meaningful tasks, give the user a short design note before editing or implementing:
