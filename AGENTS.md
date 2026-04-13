@@ -13,6 +13,7 @@ This repo contains the robot ESP32 platform firmware.
   - `../docs/interfaces/telemetry-protocol.md`
   - `../docs/electrical/wiring-and-pinout.md`
   - `../docs/verification/known-issues-and-open-questions.md`
+  - `docs/code-documentation.md`
 - This repository is a submodule of the parent `ai-robot` integration
   workspace, but it keeps its own Git history and release cycle.
 - ESP32-specific implementation docs live in `docs/`. Shared system behavior,
@@ -34,6 +35,7 @@ This repo contains the robot ESP32 platform firmware.
 - Favor boundary-preserving patterns such as adapters, finite state handling, explicit interfaces between transport and hardware-facing concerns, and dependency seams that keep the ESP32 as a passive bridge.
 - When proposing architecture changes, explain why the change does or does not belong on the ESP32 instead of the Pico or Android app.
 - Code documentation matters in this project. Add clear comments or docstrings for non-obvious behavior, especially around connection lifecycle, recovery, protocol handling, subsystem boundaries, and failure behavior.
+- Follow `docs/code-documentation.md` for repo-local documentation style and examples.
 - Do not comment obvious implementation steps; focus on the assumptions and behaviors that are easy to break by accident.
 - If implementation and docs diverge, update the shared docs and note unresolved issues in verification.
 - If the change updates a known-good integrated robot state, update the parent
