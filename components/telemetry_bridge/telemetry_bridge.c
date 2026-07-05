@@ -15,8 +15,6 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include "freertos/task.h"
-#include "nvs_flash.h"
-
 #include "telemetry_bridge.h"
 
 #define UART_PORT   UART_NUM_2
@@ -293,7 +291,6 @@ static void uart_event_task(void *arg)
 
 void telemetry_bridge_start(void)
 {
-    ESP_ERROR_CHECK(nvs_flash_init());
     s_line_q = xQueueCreate(LINE_QUEUE_DEPTH, BRIDGE_BACKLOG_LINE_MAX + 1);
     bridge_network_start();
 

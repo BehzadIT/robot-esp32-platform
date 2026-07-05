@@ -12,6 +12,10 @@ The currently implemented runtime capabilities are:
 - The ESP32 forwards lines to WebSocket clients on `/ws`.
 - Bluepad32 receives controller input over Bluetooth, normalizes the snapshot,
   and forwards it to the Pico over the dedicated controller UART.
+- The controller UART transport sends frames on input change and also sends a
+  heartbeat copy of the latest snapshot at least every `100 ms` even when
+  input is steady, so Pico-side freshness logic can distinguish `same state`
+  from `no packet`.
 
 ## Ownership boundary
 - Pico owns drivetrain control, safety behavior, and time-sensitive logic.

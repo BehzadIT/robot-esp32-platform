@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define BRIDGE_BACKLOG_LINES 128
+#define BRIDGE_BACKLOG_LINES 96
 #define BRIDGE_BACKLOG_LINE_MAX 384
 #define BRIDGE_STATUS_IP_MAX 16
 #define BRIDGE_STATUS_WS_PATH_MAX 16
