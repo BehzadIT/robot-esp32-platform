@@ -6,6 +6,16 @@ Describe the repo identity and the current implemented ESP32 role.
 ## Repo identity
 This repo is the robot ESP32 platform firmware workspace. The repo name is intentionally broader than the currently implemented capability so future ESP32 features can be added without renaming the project again.
 
+## Build identity
+The current ESP-IDF project builds as `robot_esp32_platform`. Keep that build
+identity stable while the gateway capability is added incrementally to the
+existing platform runtime.
+
+Use `robot_esp32_gateway` as the target role name in shared planning docs for
+the clean-start architecture. Rename or split the ESP-IDF project only when the
+gateway runtime needs a distinct app artifact and the current bridge workflow
+has an intentional migration path.
+
 ## Current implemented capability
 The currently implemented runtime capabilities are:
 - Pico UART logs enter on ESP32 UART2.
