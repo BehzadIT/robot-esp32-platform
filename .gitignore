@@ -1,5 +1,6 @@
 # ESP-IDF generated build output
 /build/
+/build-*/
 /managed_components/
 
 # ESP-IDF local backup created during config changes
@@ -8,3 +9,17 @@
 # Python tooling caches
 __pycache__/
 *.py[cod]
+
+# Local editor and OS state
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Machine-local environment overrides
+.env
+.env.*
+!.env.example
