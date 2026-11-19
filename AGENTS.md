@@ -32,6 +32,8 @@ This repo contains the robot ESP32 platform firmware.
 - For trivial edits, keep this brief but still mention whether the change is structural, behavioral, or purely local.
 - If no named pattern is appropriate, say that directly and explain the simpler rule being followed instead.
 - Prefer reliability-oriented telemetry patterns: explicit connection state, recoverable protocol handling, and structured diagnostics.
+- Use `tools/robot_adapter.py` for structured US-003 doctor and verification
+  results; keep ESP-IDF as the underlying authoritative build/device tool.
 - Favor boundary-preserving patterns such as adapters, finite state handling, explicit interfaces between transport and hardware-facing concerns, and dependency seams that keep the ESP32 as a passive bridge.
 - When proposing architecture changes, explain why the change does or does not belong on the ESP32 instead of the Pico or Android app.
 - Code documentation matters in this project. Add clear comments or docstrings for non-obvious behavior, especially around connection lifecycle, recovery, protocol handling, subsystem boundaries, and failure behavior.

@@ -13,6 +13,13 @@ repository.
 - `code-documentation.md`: how to document ESP32 C transport code, boundaries,
   and robotics-specific assumptions.
 
+## Agent Verification Adapter
+
+`python3 tools/robot_adapter.py doctor --json` discovers ESP-IDF and host tools
+without opening a serial port. `verify esp32-default --json` delegates the
+tracked build to ESP-IDF. Flash, monitor, WebSocket, and backpressure scenarios
+are separately gated and do not grant control authority to the ESP32.
+
 ## Parent Context
 When available, read:
 - `../../docs/overview/current-architecture.md`

@@ -4,3 +4,7 @@
 
 # ESP-IDF local backup created during config changes
 /sdkconfig.old
+
+# Python tooling caches
+__pycache__/
+*.py[cod]
